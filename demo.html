@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title></title>
+  <style>
+    .rwDialog {
+      width: 600px;
+      height: 300px;
+      background: black;
+      color: white;
+      top: 50%;
+      left: 50%;
+      position: absolute;
+      margin-top: -300px;
+      margin-left: -300px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="el">
+    <button @click="change" @click="show">出现 / 隐藏</button>
+    <keep-alive>
+      <component :is="current" :params="currentParams"></component>
+    </keep-alive>
+    <!-- <rw-dialog :params="" v-slot:demo="{ test3, test4 }">
+      {{test3}}，{{test4}}
+    </rw-dialog> -->
+  </div>
+</body>
+<script type="text/javascript" src="ls/Vue/Vue 2.6.10.js"></script>
+<script type="text/javascript" src="ls/Vue/table.js"></script>
+<script type="text/javascript" src="ls/Vue/dialog.js"></script>
+<script>
+const vm = new Vue({
+  el: ".el",
+
+  data: {
+    one: {
+      title: 'demo',
+      table: [
+        [{ text: '合单元格', width: 4 }, { text: '1', width: 1 }, { text: '合单元格', width: 4 }],
+        [{ text: '2', width: 1, unit_id: 8 }, { text: '2', width: 1 }, { text: '2', width: 1 }, { text: '2', width: 1 }, { text: '事件绑定', width: 5,
+                                                                                                                            click: ['unit_click', 'unit_click2'], // 单元格事件绑定
+                                                                                                                            params: [123, 456],                   // 单元格事件传参
+                                                                                                                            styleParams: { cursor: 'pointer' },   // 单元格样式
+                                                                                                                            id: '我是单元格 id'                    // 单元格 id
+                                                                                                                          }],
+        [{ text: '合单元格', width: 6 }, { text: '3', width: 1, unit_id: 8 }, { text: '3', width: 1 }, { text: '3', width: 1 }],
+        [{ text: '4', width: 1 }, { text: '4', width: 1, unit_id: 8 }, { text: '4', width: 1 }, { text: '4', width: 1 },
+          { text: '4', width: 1 }, { text: '4', width: 1 }, { text: '4', width: 1 }, { text: '4', width: 1 }, { text: '4', width: 1 }]
+      ],
+      unitWidth: 40,
+      height: 40
+    },
+
+    demo: {
+      show: 1
+    },
+
+    currentParams: '',
+
+    current: 'rw-dialog'
+  },
+
+  methods: {
+    show() {
+      this.demo.show = !this.demo.show;
+      console.log(123);
+    },
+
+    change() {
+      if(this.current === 'rw-dialog') {
+        this.current = 'rw-table'
+        this.currentParams = this.one;
+      }
+      else {
+        this.current = 'rw-dialog';
+        this.currentParams = '';
+      }
+    }
+  },
+});
+</script>
+</html>
+

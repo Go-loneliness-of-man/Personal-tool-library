@@ -1,0 +1,24 @@
+@charset "utf-8";
+
+html{ line-height:1.7em; }
+body{
+  padding:15px;
+  font-size:16px;
+  line-height:1.7em;
+}
+.em {
+  color: rgb(250, 30, 30);
+  font-weight: bold;
+  border-bottom:2px solid rgb(250, 30, 30);
+  padding:1px 1px 3px 1px;
+}                                              /*重点*/
+p{ text-indent:2em; }
+code{ white-space:pre; }
+table{ border-collapse:collapse; }
+table td{ padding:10px; }
+img{
+  display:block;
+  width:90%;
+  margin:20px auto;
+}
+

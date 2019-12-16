@@ -4,10 +4,10 @@
   目前已有的方法：
 
   1、notRepeat(arr, target, compare = undefined, index = 0)，数组查重，参数：
-    arr：       被查询的数组
-    target：    目标元素
-    compare：   比较器，默认直接比较 arr[i]、target 是否相等，传了后会将 arr[i]、target 依次传入比较器进行比较，返回 1 代表不重复，0 代表重复
-    index：     是否返回重复项的下标，默认 0，若传 1，返回值变为对象 { repeat: int, i: int }，repeat 即原返回值，i 是下标
+    arr：          array               被查询的数组
+    target：       any                 目标元素
+    compare：      function            比较器，默认直接比较 arr[i]、target 是否相等，传了后会将 arr[i]、target 依次传入比较器进行比较，返回 1 代表不重复，0 代表重复
+    index：        int                 是否返回重复项的下标，默认 0，若传 1，返回值变为对象 { repeat: int, i: int }，repeat 即原返回值，i 是下标
 */
 
 (function(window) {

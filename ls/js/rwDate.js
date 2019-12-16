@@ -4,8 +4,8 @@
   目前已有的方法：
 
   1、localTime(format = 'y-mon-d ', num = (new Date()).getTime())，获取指定格式的日期，参数：
-    format：  格式字符串，默认为 'y-mon-d'，可选字符有 'y', 'mon', 'd', 'h', 'm', 's'
-    num：     时间戳，默认当前时间
+    format：      string                           格式字符串，默认为 'y-mon-d'，可选字符有 'y', 'mon', 'd', 'h', 'm', 's'
+    num：         int                              时间戳，默认当前时间
 
   2、addOneDate(date, format = 0)，加一天，date 为接收的日期，格式必须为 y-mon-d 或 y-mon-d h:m:s，format 为返回日期的格式
 
@@ -14,10 +14,14 @@
   4、compareDate(a, b)，日期比较，a、b 为接收的日期，格式必须为 y-mon-d 或 y-mon-d h:m:s，a 大返回 1，b 大返回 0，相等返回 2
 
   5、supplementaryDate(data, key, start, end)，日期补全，补全的元素拥有 supplementaryDate 属性，值为 true，参数：
-    data：     待补全日期的数组，其格式应为 [object, object, object ...]，并且数组日期必须由小到大
-    key：      数组元素中，保存日期的 key
-    start：    起始日期
-    end：      结束日期
+    data：        [object, object, object ...]      待补全日期的数组，并且数组日期必须由小到大
+    key：         string                            数组元素中，保存日期的 key
+    start：       string                            起始日期
+    end：         string                            结束日期
+  
+  6、timeOverlap(times, y = 0)，判断时间区间是否存在重叠，返回值 0 代表重叠，1 代表不重叠，参数：
+    times:        [[string, string], ... ]          被判断的时间区间字符串，左端点一定要小于右端点
+    y             int                               时间字符串格式，默认 0，格式为 时:分:秒，代表仅判断 24 小时，不考虑年月日，传入 1 则可以指定年、月、日
 */
 
 (function(window){
@@ -121,6 +125,22 @@
         }
       }
       return newData;
+    }
+
+    // 判断时间区间是否存在重叠，返回值 0 代表重叠，1 代表不重叠
+    async timeOverlap(times, y = 0) {
+      for (let i = 0; i < times.length; i++) // 全部转为时间戳
+        for(let j = 0; j < 2; j++)
+          times[i][j] = (new Date(y ? times[i][j] : `2019-2-22 ${times[i][j]}`)).getTime();
+      for (let i = 0; i < times.length; i++) // 遍历元素
+        for (let j = i + 1; j < times.length; j++) // 单独拿出一个区间进行遍历，假设 A、B 区间，A、B 区间端点 a、b、c、d，则只要 a <= c，b <= c 或 a >= d，A、B 不重叠
+          if (times[i][0] <= times[j][0] && times[i][1] <= times[j][0]) // a < c、b < c
+              continue;
+          else if (times[i][0] >= times[j][1]) // a > d
+            continue;
+          else
+            return 0;
+      return 1;
     }
   }
 
